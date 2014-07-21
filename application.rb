@@ -2,16 +2,23 @@ require 'sinatra/base'
 require 'gschool_database_connection'
 
 require './lib/country_list'
+require './lib/message_maker'
 
 class Application < Sinatra::Application
 
   def initialize
     super
-    @database_connection = GschoolDatabaseConnection::DatabaseConnection.establish(ENV['RACK_ENV'])
+    @db = MessageMaker.new
   end
 
   get '/' do
-    erb :index
+    all_messages = @db.find_all_messages
+    erb :index, locals: { all_messages: all_messages }
+  end
+
+  post '/message' do
+    @db.insert_message(params[:name],params[:message])
+    redirect '/'
   end
 
   get '/continents' do

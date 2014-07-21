@@ -21,7 +21,13 @@ class CountryList
   end
 
   def countries_for_continent(continent)
-    all
+    countries_in_continent = []
+    all.each do |hash|
+      if hash[:continent] == continent
+        countries_in_continent << hash
+      end
+    end
+    countries_in_continent
   end
 
 end
