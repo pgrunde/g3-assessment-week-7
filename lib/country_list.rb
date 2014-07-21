@@ -20,14 +20,9 @@ class CountryList
     all.map { |country| country[:continent] }.uniq.sort
   end
 
+
   def countries_for_continent(continent)
-    countries_in_continent = []
-    all.each do |hash|
-      if hash[:continent] == continent
-        countries_in_continent << hash
-      end
-    end
-    countries_in_continent
+    all.reject {|hash| hash[:continent] != continent }
   end
 
 end
