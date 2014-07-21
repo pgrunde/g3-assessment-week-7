@@ -40,8 +40,14 @@ class CountryList
 
   # reversed using .select
 
+  # def countries_for_continent(continent)
+  #   all.select {|hash| hash[:continent] == continent }
+  # end
+
+  # using the inject method 
+
   def countries_for_continent(continent)
-    all.select {|hash| hash[:continent] == continent }
+    all.inject([]) {|memo,hash| memo.push hash if hash[:continent] == continent; memo }
   end
 
 end
